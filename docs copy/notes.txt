@@ -1,0 +1,111 @@
+colorama is a python lib that allows displaying of styled text to the console
+
+major imports Fore, Style , Back , init
+
+
+init(autoreset = True) window dependency automatically resets the color
+
+Fore and Back (supports a wide variety of colors)
+syntax (Fore.BLACK + "hello welcome to python")
+syntax (Back.RED + "welcome to python")
+
+Style:
+BRIGHT  -> effect is bold and bright 
+DIM   -> effect is dimmed
+NORMAL -> effect is normal
+RESET_ALL  -> resets color style
+
+
+
+
+
+
+imports
+pytest , pytest-mock
+
+
+
+when checking to see is an error raise is correct
+we use pytest context manager 
+
+syntax 
+with pytest.raises(error) as variable:
+    function action
+assert str(variable.value) == "error message"
+
+
+
+for unit testing it is important to always test different edge cases 
+to make sure the function is roboust and works well
+
+NB: all pytest functions must always start with test
+
+@pytest.fixture
+def user_manager():
+    """
+    A pytest fixture that provides a fresh instance of Usermanager
+    for each test function that requests it.
+
+    Instead of sharing one instance across all tests (which causes
+    state to bleed between tests), this fixture creates a brand new
+    Usermanager object before every test, guaranteeing a clean
+    isolated state each time.
+
+    Yields/Returns:
+        Usermanager: a new instance with an empty users dict
+
+    Example:
+        def test_add_user(user_manager):
+            # user_manager here is a fresh instance, not shared
+            user_manager.add_users("john_doe", "john@example.com")
+    """
+    return Usermanager()
+
+
+
+
+
+parameterized testing
+Parameterized testing is a way to run the same test with multiple different inputs without writing the same test over and over.
+
+
+@pytest.mark.parametrize("user_id, name", [
+    (1, "Taiwo"),
+    (2, "Kehinde"),
+    (3, "Ola"),
+])
+def test_add_user(database, user_id, name):
+    assert database.add_user(user_id, name) == True
+
+in parameterized decorator argument name should be a string
+
+
+to see a print statement in a pytest use the -s flag 
+
+
+
+
+MOCKING 
+Mocking is pretending something works without actually running it.
+
+
+
+def register_user(email):
+    send_email(email)  # ← real email, costs money, needs internet
+    return True
+
+
+
+def test_register_user(mocker):
+    mocker.patch("send_email")  # ← fake send_email, does nothing
+
+    assert register_user("test@gmail.com") == True  # ✅ no real email sent
+
+
+so for mocking we are basically checking to see 
+if our code would pass if an extrenal event succeeds or fails
+wihout having to replicate that extrenal event for real 
+
+
+
+spec = Can be used to mock an entire Class 
