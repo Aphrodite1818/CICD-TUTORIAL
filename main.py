@@ -50,3 +50,7 @@ def count_words(text: str) -> int:
         raise TypeError("text must be a string")
 
     return len(text.split())
+
+
+def say_hello():
+    return "say hello"
