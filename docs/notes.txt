@@ -109,3 +109,16 @@ wihout having to replicate that extrenal event for real
 
 
 spec = Can be used to mock an entire Class 
+
+
+
+
+
+
+GIT CICD
+
+
+branch settings ,
+require a pull request before merging
+require approvals
+require status checks to pass 
